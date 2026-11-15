@@ -10,11 +10,12 @@ maxZoom: 7
 });
 
 // NASA moon trek global surface titles
-L.tileLayer('https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/default028mm/{z}/{y}/{x}.jpg', {
-    attribution: 'NASA / GSFC / ASU (Moon Trek)',
-    noWrap: true
-}).addTo(map);
-
+const moonBounds = [[-90, -180], [90, 180]];
+L.imageOverlay('https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_poles_2k.jpg', {
+  moonBounds,  
+  { attribution: 'NASA / GSFC / Arizona State Uiniversity (LRO)' }
+).addTo(map);
+map.setMaxBounds (moonBounds);
 //Store loaded sites and layer for map pins
 let allSites = [];
 const markersLayer = L.layerGroup().addTo(map);

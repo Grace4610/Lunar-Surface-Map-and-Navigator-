@@ -13,7 +13,7 @@ maxZoom: 7
 const moonBounds = [[-90, -180], [90, 180]];
 L.imageOverlay('https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_poles_2k.jpg', {
   moonBounds,  
-  { attribution: 'NASA / GSFC / Arizona State Uiniversity (LRO)' }
+   attribution: 'NASA / GSFC / Arizona State Uiniversity (LRO)' }
 ).addTo(map);
 map.setMaxBounds (moonBounds);
 //Store loaded sites and layer for map pins

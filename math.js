@@ -10,26 +10,42 @@ maxZoom: 7
 });
 
 // NASA moon trek global surface titles
-L.titleLayer('https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/default028mm/{z}/{y}/{x}.jpg', {
+L.tileLayer('https://trek.nasa.gov/tiles/Moon/EQ/LRO_WAC_Mosaic_Global_303ppd_v02/1.0.0/default028mm/{z}/{y}/{x}.jpg', {
     attribution: 'NASA / GSFC / ASU (Moon Trek)',
     noWrap: true
 }).addTo(map);
 
-//linking json sites data
+//Store loaded sites and layer for map pins
+let allSites = [];
+const markersLayer = L.layerGroup().addTo(map);
+
+//Create pins for whichever sites are safe for landing
+function renderMapPins(sitesToDisplay) {
+  markersLayer.clearLayers(); // Clear old pins before redrawing
+
+  sitesToDisplay.forEach((site, index) => {
+    L.marker([site.lat, site.lon])
+      .addTo(markersLayer)
+      .bindPopup(`
+        <b>#${index + 1}: ${site.name}</b><br>
+        <b>Suitability Score: ${site.score ?? 'N/A'} / 100</b><br>
+        Category: ${site.category}<br>
+        Slope: ${site.slopeDeg}° | Sunlight: ${site.sunlightPct}%<br>
+        Earth Comms: ${site.earthCommsPct}% | Ice Dist: ${site.iceProximityKm} km<br>
+        <i>${site.notes}</i>
+      `);
+  });
+}
+
+//Load sites.json and save it
 fetch('sites.json')
   .then(response => response.json())
   .then(sites => {
-    sites.forEach(site => {
-      L.marker([site.lat, site.lon])
-        .addTo(map)
-        .bindPopup(`
-          <b>${site.name}</b><br>
-          Category: ${site.category}<br>
-          Slope: ${site.slopeDeg}° | Sunlight: ${site.sunlightPct}%<br>
-          Earth Comms: ${site.earthCommsPct}% | Ice Dist: ${site.iceProximityKm} km<br>
-          <i>${site.notes}</i>
-        `);
-    });
+    allSites = sites;
+    // Initial default ranking on page load
+    const defaultWeights = { flatness: 25, sunlight: 25, comms: 25, ice: 25 };
+    const initialRanked = rankSites(allSites, defaultWeights, 20);
+    renderMapPins(initialRanked);
   });
 
 

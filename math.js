@@ -13,7 +13,7 @@ maxZoom: 7
 const moonBounds = [[-90, -180], [90, 180]];
 L.imageOverlay('moon-map.jpg', {
   moonBounds,  
-   attribution: 'NASA / GSFC / Arizona State Uiniversity (LRO)' }
+   attribution: 'NASA / GSFC / Arizona State University (LRO)' }
 ).addTo(map);
 map.fitBounds(moonBounds);
 //Store loaded sites and layer for map pins

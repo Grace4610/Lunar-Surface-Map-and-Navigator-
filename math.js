@@ -5,15 +5,15 @@ const map = L.map('moon-map', {
 crs: L.CRS.EPSG4326,
 center: [0, 0],
 zoom: 1,
-minZoom: 0.5,
+minZoom: 0,
 maxZoom: 7
 });
 
 // NASA moon trek global surface titles
 const moonBounds = [[-90, -180], [90, 180]];
-L.imageOverlay('moon-map.jpg', {
+L.imageOverlay('moon-map.jpg', 
   moonBounds,  
-   attribution: 'NASA / GSFC / Arizona State University (LRO)' }
+  { attribution: 'NASA / GSFC / Arizona State University (LRO)' }
 ).addTo(map);
 map.fitBounds(moonBounds);
 //Store loaded sites and layer for map pins

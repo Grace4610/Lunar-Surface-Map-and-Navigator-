@@ -11,7 +11,7 @@ maxZoom: 7
 
 // NASA moon trek global surface titles
 const moonBounds = [[-90, -180], [90, 180]];
-L.imageOverlay('https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_poles_2k.jpg', {
+L.imageOverlay('moon-map.jpg', {
   moonBounds,  
    attribution: 'NASA / GSFC / Arizona State Uiniversity (LRO)' }
 ).addTo(map);

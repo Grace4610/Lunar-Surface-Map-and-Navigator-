@@ -83,3 +83,21 @@ function rankSites(sites, weights, maxAllowedSlope = 20) {
     })
     .sort((a, b) => b.score - a.score);
 }
+
+
+//Compare any two sites across every catagory and return winners
+function compareTwoSites(siteA, siteB) {
+  if (!siteA || !siteB) return null;
+
+  return {
+    siteA,
+    siteB,
+    winners: {
+      overall: siteA.score > siteB.score ? siteA.name : (siteB.score > siteA.score ? siteB.name : 'Tie'),
+      slope: siteA.slopeDeg < siteB.slopeDeg ? siteA.name : (siteB.slopeDeg < siteA.slopeDeg ? siteB.name : 'Tie'),
+      sunlight: siteA.sunlightPct > siteB.sunlightPct ? siteA.name : (siteB.sunlightPct > siteA.sunlightPct ? siteB.name : 'Tie'),
+      comms: siteA.earthCommsPct > siteB.earthCommsPct ? siteA.name : (siteB.earthCommsPct > siteA.earthCommsPct ? siteB.name : 'Tie'),
+      ice: siteA.iceProximityKm < siteB.iceProximityKm ? siteA.name : (siteB.iceProximityKm < siteA.iceProximityKm ? siteB.name : 'Tie')
+    }
+  };
+}

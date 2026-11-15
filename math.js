@@ -6,7 +6,9 @@ crs: L.CRS.EPSG4326,
 center: [0, 0],
 zoom: 1,
 minZoom: 0,
-maxZoom: 7
+maxZoom: 7,
+zoomSnap: 0.1,
+zoomDelta: 0.5
 });
 
 // NASA moon trek global surface titles

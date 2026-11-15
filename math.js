@@ -15,7 +15,7 @@ L.imageOverlay('moon-map.jpg', {
   moonBounds,  
    attribution: 'NASA / GSFC / Arizona State Uiniversity (LRO)' }
 ).addTo(map);
-map.setMaxBounds (moonBounds);
+map.fitBounds(moonBounds);
 //Store loaded sites and layer for map pins
 let allSites = [];
 const markersLayer = L.layerGroup().addTo(map);
